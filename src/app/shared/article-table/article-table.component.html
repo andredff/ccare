@@ -1,0 +1,51 @@
+<div [hidden]="loading || totalPages.length <= 1">
+  <table mat-table [dataSource]="dataSource" class="w-100">
+
+    <!-- title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> title </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <!-- description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> description </th>
+      <td mat-cell *matCellDef="let element" class="max-length"> {{element.description}} </td>
+    </ng-container>
+
+    <!-- author Column -->
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef> author </th>
+      <td mat-cell *matCellDef="let element"> <img [src]="element.author.image" height="20" /> <a class="author"
+          (click)="goToProfile(element.author.username)"> {{element.author.username}}</a> </td>
+    </ng-container>
+
+    <!-- createdAt Column -->
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef> createdAt </th>
+      <td mat-cell *matCellDef="let element"> {{element.createdAt | date: 'dd/MM/yyyy' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="favorite">
+      <th mat-header-cell *matHeaderCellDef> Favorite </th>
+      <td mat-cell *matCellDef="let element">
+        <app-favorite-button [article]="element" (toggle)="onToggleFavorite($event)" class="pull-xs-right">
+          {{element.favoritesCount}}
+        </app-favorite-button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+<div class="app-article-preview" [hidden]="!loading">
+  Loading articles...
+</div>
+
+<div class="app-article-preview" [hidden]="loading || results.length">
+  No articles are here... yet.
+</div>

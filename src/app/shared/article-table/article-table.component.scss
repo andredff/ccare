@@ -1,0 +1,28 @@
+.w-100 {
+  width: 100%;
+}
+
+.author {
+  color: #5cb85c;
+  cursor: pointer;
+}
+
+// .max-length {
+//   max-width: 200px;
+//   text-overflow: ellipsis;
+//   overflow: hidden;
+//   white-space: nowrap;
+// }
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th,
+td {
+  overflow: hidden;
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
